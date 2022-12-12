@@ -1,4 +1,3 @@
-
 version: 2.1
 
 jobs:
@@ -9,7 +8,7 @@ jobs:
         type: string
     macos:
       xcode: << parameters.version >>
-    parallelism: 10
+    parallelism: 2
     steps:
       - checkout
       - run: |
