@@ -1,0 +1,35 @@
+
+version: 2.1
+
+jobs:
+  mac-os:
+    parameters:
+      version:
+        default: "14.0.0"
+        type: string
+    macos:
+      xcode: << parameters.version >>
+    parallelism: 10
+    steps:
+      - checkout
+      - run: |
+          security create-keychain -p password fastlane_tmp_keychain-db
+          security list-keychains -d user -s login.keychain-db fastlane_tmp_keychain-db
+          ls -l /Users/distiller/Library/Keychains/
+      - run: |
+          curl -f -o AppleWWDRCAG.cer https://www.apple.com/certificateauthority/AppleWWDRCA.cer && security import AppleWWDRCA.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+          curl -f -o AppleWWDRCAG2.cer https://www.apple.com/certificateauthority/AppleWWDRCAG2.cer && security import AppleWWDRCAG2.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+          curl -f -o AppleWWDRCAG3.cer https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer && security import AppleWWDRCAG3.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+          curl -f -o AppleWWDRCAG4.cer https://www.apple.com/certificateauthority/AppleWWDRCAG4.cer && security import AppleWWDRCAG4.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+          curl -f -o AppleWWDRCAG5.cer https://www.apple.com/certificateauthority/AppleWWDRCAG5.cer && security import AppleWWDRCAG5.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+          curl -f -o AppleWWDRCAG6.cer https://www.apple.com/certificateauthority/AppleWWDRCAG6.cer && security import AppleWWDRCAG6.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
+      
+workflows:
+  workflow1:
+    jobs:
+      - mac-os:
+          matrix:
+            parameters:
+              version: ["14.0.0", "14.0.1", "14.1.0"]
+ 
+
