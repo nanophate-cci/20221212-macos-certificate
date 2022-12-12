@@ -11,6 +11,7 @@ jobs:
     parallelism: 15
     steps:
       - checkout
+      - run: curl --version
       - run: |
           security create-keychain -p password fastlane_tmp_keychain-db
           security list-keychains -d user -s login.keychain-db fastlane_tmp_keychain-db
