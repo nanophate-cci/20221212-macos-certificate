@@ -16,6 +16,7 @@ jobs:
           security create-keychain -p password fastlane_tmp_keychain-db
           security list-keychains -d user -s login.keychain-db fastlane_tmp_keychain-db
           ls -l /Users/distiller/Library/Keychains/
+          dig www.apple.com
       - run: |
           curl -f -o AppleWWDRCA.cer https://developer.apple.com/certificationauthority/AppleWWDRCA.cer && security import AppleWWDRCA.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
           curl -f -o AppleWWDRCAG2.cer https://www.apple.com/certificateauthority/AppleWWDRCAG2.cer && security import AppleWWDRCAG2.cer -k /Users/distiller/Library/Keychains/fastlane_tmp_keychain-db
